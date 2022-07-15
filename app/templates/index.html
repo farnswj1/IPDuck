@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>IP Duck</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Justin Farnsworth">
+        <meta name="description" content="This is a variation of IP Chicken, a website that shows you your IP address.">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    </head>
+    <body>
+        <div id="main">
+            <div>
+                <h1>IP Duck</h1>
+                <img id="duck" src="{{ url_for('static', filename='images/duck.png') }}" />
+                <p>Your IP address is:</p>
+                <p id="ip-address"><b>{{ client_ip }}</b></p>
+                <p><b>Remote Port:</b> {{ remote_port }}</p>
+                <p><b>Browser:</b> {{ browser }}</p>
+            </div>
+        </div>
+    </body>
+</html>
