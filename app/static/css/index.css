@@ -1,22 +1,11 @@
 body {
-  height: 100vh;
-  margin: 0;
   background-image: radial-gradient(circle, aqua, yellow, white);
 }
 
-#main {
-  height: 100%;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 #duck {
-  max-height: 250px;
+  max-height: 200px;
 }
 
 #ip-address {
-  font-size: 50px;
   color: red;
 }
