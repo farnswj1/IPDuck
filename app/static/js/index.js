@@ -1,3 +1,3 @@
-document.getElementById('duck').onclick = function() {
-    document.getElementById('quack-audio').play();
-};
+const quackAudio = document.getElementById('quack-audio');
+const duck = document.getElementById('duck');
+duck.onclick = () => quackAudio.play();
