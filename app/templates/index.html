@@ -11,8 +11,8 @@
     <script src="{{ url_for('static', filename='js/index.js') }}" defer></script>
     <title>IP Duck - What is my IP Address?</title>
   </head>
-  <body class="h-100">
-    <main class="container h-100 d-flex justify-content-center align-items-center">
+  <body class="h-100 d-flex justify-content-center align-items-center">
+    <main class="container">
       <div class="text-center">
         <h1>IP Duck</h1>
         <img id="duck" class="img-fluid my-3" src="{{ url_for('static', filename='images/duck.png') }}" alt="Duck" />
@@ -21,9 +21,9 @@
         <p><b>Remote Port:</b> {{ remote_port }}</p>
         <p><b>Browser:</b> {{ browser }}</p>
       </div>
+      <audio id="quack-audio" preload="auto">
+        <source src="{{ url_for('static', filename='audio/quack.mp3') }}" type="audio/mpeg">
+      </audio>
     </main>
-    <audio id="quack-audio" preload="auto">
-      <source src="{{ url_for('static', filename='audio/quack.mp3') }}" type="audio/mpeg">
-    </audio>
   </body>
 </html>
