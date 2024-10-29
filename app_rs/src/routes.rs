@@ -19,7 +19,12 @@ pub async fn root(
         Some(port ) => port.to_str().unwrap().to_string(),
         None => socket.port().to_string()
     };
-    let browser = headers.get(USER_AGENT).unwrap().to_str().unwrap().to_string();
+
+    let browser = match headers.get(USER_AGENT) {
+        Some(user_agent) => user_agent.to_str().unwrap().to_string(),
+        None => "N/A".to_string()
+    };
+
     info!("{client_ip}:{remote_port} - {browser}");
     IndexTemplate { client_ip, remote_port, browser }
 }
