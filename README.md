@@ -13,8 +13,7 @@ The project uses the following:
 For additional information on project specifications, see the ```Pipfile```.
 
 ### Environment
-In the ```app_rs/``` directory, create a ```.env``` file
-that contains the following environment variables:
+In the ```app_rs/``` directory, create a ```.env``` file that contains the following environment variables:
 ```
 CORS_ALLOWED_ORIGINS=http://localhost http://127.0.0.1
 ```
@@ -25,5 +24,4 @@ The project uses Docker. Ensure Docker and Docker Compose are installed before c
 To build, run ```docker-compose build```
 
 ## Running
-To run the web app, run ```docker-compose up -d```, then 
-go to http://localhost using your web browser.
+To run the web app, run ```docker-compose up -d```, then go to http://localhost using your web browser.
