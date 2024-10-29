@@ -1,0 +1,11 @@
+body {
+  background-image: radial-gradient(circle, aqua, yellow, white);
+}
+
+#duck {
+  max-height: 200px;
+}
+
+#ip-address {
+  color: red;
+}

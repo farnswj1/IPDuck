@@ -3,19 +3,20 @@ This is a variation of IP Chicken, a website that shows you your IP address.
 
 ## Setup
 The project uses the following:
-- Python 3.9
-- Flask 2.1
-- Nginx 1.21
+- Rust
+- Axum
+- Bootstrap
+- Nginx
 - Docker
 - Docker Compose
 
 For additional information on project specifications, see the ```Pipfile```.
 
 ### Environment
-In the ```app/``` directory, create a ```.env``` file
+In the ```app_rs/``` directory, create a ```.env``` file
 that contains the following environment variables:
 ```
-FLASK_ENV=production
+CORS_ALLOWED_ORIGINS=http://localhost http://127.0.0.1
 ```
 
 ## Building

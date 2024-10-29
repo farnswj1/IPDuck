@@ -1,13 +1,11 @@
-version: "3.2"
-
 services:
   app:
     container_name: app
     image: app
-    build: app
+    build: app_rs
     restart: always
     env_file:
-      - ./app/.env
+      - ./app_rs/.env
   nginx:
     container_name: nginx
     image: nginx

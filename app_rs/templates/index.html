@@ -5,24 +5,24 @@
     <meta name="author" content="Justin Farnsworth">
     <meta name="description" content="This is a variation of IP Chicken, a website that shows you your IP address.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image/png" href="{{ url_for('static', filename='images/favicon.ico') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
-    <script defer src="{{ url_for('static', filename='js/index.js') }}"></script>
-    <title>IP Duck - What is my IP Address?</title>
+    <link rel="shortcut icon" type="image/png" href="/static/images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/index.css">
+    <script defer src="/static/js/index.js"></script>
+    <title>IP Duck - What is my IP address?</title>
   </head>
   <body class="h-100 d-flex justify-content-center align-items-center">
     <main class="container">
       <div class="text-center">
         <h1>IP Duck</h1>
-        <img id="duck" class="img-fluid my-3" src="{{ url_for('static', filename='images/duck.png') }}" alt="Duck" />
+        <img id="duck" class="img-fluid my-3" src="/static/images/duck.png" alt="Duck" />
         <p>Your IP address is:</p>
         <p id="ip-address" class="display-3"><strong>{{ client_ip }}</strong></p>
         <p><b>Remote Port:</b> {{ remote_port }}</p>
         <p><b>Browser:</b> {{ browser }}</p>
       </div>
       <audio id="quack-audio" preload="auto">
-        <source src="{{ url_for('static', filename='audio/quack.mp3') }}" type="audio/mpeg">
+        <source src="/static/audio/quack.mp3" type="audio/mpeg">
       </audio>
     </main>
   </body>
