@@ -16,7 +16,7 @@ pub async fn root(
     ConnectInfo(socket): ConnectInfo<SocketAddr>
 ) -> IndexTemplate {
     let remote_port = match headers.get("X-Forwarded-Port") {
-        Some(port ) => port.to_str().unwrap().to_string(),
+        Some(port) => port.to_str().unwrap().to_string(),
         None => socket.port().to_string()
     };
 
