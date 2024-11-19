@@ -15,8 +15,11 @@ use tokio::net::TcpListener;
 use tower_http::cors::CorsLayer;
 use tower_http::services::ServeDir;
 use tower_http::trace::TraceLayer;
+use tracing::info;
 
-fn get_router(config: &Config) -> IntoMakeServiceWithConnectInfo<Router, SocketAddr> {
+fn get_router() -> IntoMakeServiceWithConnectInfo<Router, SocketAddr> {
+    let config = envy::from_env::<Config>().unwrap();
+
     let origins = config.cors_allowed_origins
         .split(" ")
         .map(|origin| origin.parse().unwrap())
@@ -45,10 +48,10 @@ async fn main() {
     dotenv().ok();
     tracing_subscriber::fmt().with_max_level(tracing::Level::INFO).init();
 
-    let config = envy::from_env::<Config>().unwrap();
-    let router = get_router(&config);
-    let listener = TcpListener::bind("0.0.0.0:8000").await.unwrap();
+    let address = "0.0.0.0:8000";
+    let router = get_router();
+    let listener = TcpListener::bind(address).await.unwrap();
 
-    println!("LISTENING on 0.0.0.0:8000");
+    info!("LISTENING on {address}");
     serve(listener, router).await.unwrap();
 }
