@@ -4,7 +4,7 @@ This is a variation of IP Chicken, a website that shows you your IP address.
 ## Setup
 The project uses the following:
 - Rust
-- Axum
+- Actix Web
 - Bootstrap
 - Nginx
 - Docker
