@@ -1,23 +1,23 @@
-use std::net::SocketAddr;
-
-use axum::{
-    extract::ConnectInfo,
-    http::{header::USER_AGENT, HeaderMap},
-    response::Redirect
+use actix_web::{
+    dev::PeerAddr,
+    get,
+    http::header::USER_AGENT,
+    web::{Html, Redirect},
+    HttpRequest,
+    Responder
 };
-use axum_client_ip::InsecureClientIp;
-use tracing::info;
+use askama_actix::Template;
 
 use crate::templates::IndexTemplate;
 
-pub async fn root(
-    headers: HeaderMap,
-    InsecureClientIp(client_ip): InsecureClientIp,
-    ConnectInfo(socket): ConnectInfo<SocketAddr>
-) -> IndexTemplate {
+#[get("/")]
+pub async fn index(request: HttpRequest, addr: PeerAddr) -> impl Responder {
+    let headers = request.headers();
+    let client_ip = request.connection_info().realip_remote_addr().unwrap().to_string();
+
     let remote_port = match headers.get("X-Forwarded-Port") {
         Some(port) => port.to_str().unwrap().to_string(),
-        None => socket.port().to_string()
+        None => addr.0.port().to_string()
     };
 
     let browser = match headers.get(USER_AGENT) {
@@ -25,10 +25,10 @@ pub async fn root(
         None => "N/A".to_string()
     };
 
-    info!("{client_ip}:{remote_port} - {browser}");
-    IndexTemplate { client_ip, remote_port, browser }
+    let template = IndexTemplate{ client_ip, remote_port, browser };
+    Html::new(template.render().expect("Render index.html"))
 }
 
-pub async fn not_found() -> Redirect {
-    Redirect::permanent("/")
+pub async fn redirect() -> impl Responder {
+    Redirect::to("/").permanent()
 }
