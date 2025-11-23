@@ -19,8 +19,6 @@ EXPOSE 8000
 
 # copy the build artifacts from the build stage
 COPY --from=build /opt/app/target/release/app ./
-COPY --from=build /opt/app/templates ./templates/
-COPY --from=build /opt/app/static ./static/
 
 # run the binary
 CMD ["./app"]
