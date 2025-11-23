@@ -4,8 +4,6 @@ services:
     image: app
     build: app_rs
     restart: always
-    env_file:
-      - ./app_rs/.env
   nginx:
     container_name: nginx
     image: nginx
