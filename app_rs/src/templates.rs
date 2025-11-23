@@ -1,6 +1,6 @@
-use askama_actix::Template;
+use {askama::Template, askama_web::WebTemplate};
 
-#[derive(Template)]
+#[derive(Template, WebTemplate)]
 #[template(path = "index.html")]
 pub struct IndexTemplate {
     pub client_ip: String,

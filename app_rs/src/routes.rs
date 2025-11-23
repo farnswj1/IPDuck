@@ -2,13 +2,15 @@ use actix_web::{
     dev::PeerAddr,
     get,
     http::header::USER_AGENT,
-    web::{Html, Redirect},
+    web::{Html, Path, Redirect},
     HttpRequest,
     Responder
 };
-use askama_actix::Template;
+use actix_web_rust_embed_responder::{Compress, IntoResponse};
+use askama::Template;
+use rust_embed_for_web::RustEmbed;
 
-use crate::templates::IndexTemplate;
+use crate::{staticfiles::StaticAssets, templates::IndexTemplate};
 
 #[get("/")]
 pub async fn index(request: HttpRequest, addr: PeerAddr) -> impl Responder {
@@ -27,6 +29,11 @@ pub async fn index(request: HttpRequest, addr: PeerAddr) -> impl Responder {
 
     let template = IndexTemplate{ client_ip, remote_port, browser };
     Html::new(template.render().expect("Render index.html"))
+}
+
+#[get("/static/{path:.*}")]
+async fn serve_static(path: Path<String>) -> impl Responder {
+    StaticAssets::get(&path).into_response().use_compression(Compress::IfWellKnown)
 }
 
 pub async fn redirect() -> impl Responder {

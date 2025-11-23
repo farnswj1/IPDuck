@@ -1,17 +1,20 @@
 # base image
-FROM python:3.9-slim-bullseye
+FROM ghcr.io/astral-sh/uv:python3.13-bookworm
 
 # set environment variables
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
+
+# expose port(s)
+EXPOSE 8000
 
 # set directory
-WORKDIR /app
+WORKDIR /opt/app
 
 # add application and install dependencies
-RUN pip install pipenv
-COPY Pipfile Pipfile.lock ./
-RUN pipenv install --system --deploy --ignore-pipfile
+COPY pyproject.toml uv.lock .python-version ./
+RUN uv sync --frozen
 COPY . ./
 
 # run the app
-CMD ["supervisord", "-c", "supervisord.conf"]
+CMD ["uv", "run", "gunicorn", "app:app", "-w", "4", "-b", "0.0.0.0:8000", \
+  "--access-logfile", "/dev/stdout", "--error-logfile", "/dev/stderr"]

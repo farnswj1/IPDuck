@@ -1,15 +1,15 @@
 mod config;
 mod routes;
+mod staticfiles;
 mod templates;
 
 use std::io::Result;
 
 use actix_cors::Cors;
-use actix_files::Files;
 use actix_web::{middleware::{Logger, NormalizePath}, web::to, App, HttpServer};
 use config::Config;
 use dotenvy::dotenv;
-use routes::{index, redirect};
+use routes::{index, serve_static, redirect};
 use tracing::Level;
 
 #[actix_web::main]
@@ -28,7 +28,7 @@ async fn main() -> Result<()> {
             .wrap(Logger::new("%{r}a \"%r\" %s %b \"%{Referer}i\" \"%{User-Agent}i\" %Ts"))
             .wrap(NormalizePath::trim())
             .service(index)
-            .service(Files::new("/static", "./static"))
+            .service(serve_static)
             .default_service(to(redirect))
     })
         .bind(("0.0.0.0", 8000))?

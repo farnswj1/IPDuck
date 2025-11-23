@@ -1,4 +1,4 @@
-FROM rust:1.81.0 AS build
+FROM rust:1.91.1-slim AS build
 
 WORKDIR /opt/app
 
@@ -14,8 +14,8 @@ RUN cargo build --release
 
 # the final base image
 FROM gcr.io/distroless/cc
-
 WORKDIR /opt/app
+EXPOSE 8000
 
 # copy the build artifacts from the build stage
 COPY --from=build /opt/app/target/release/app ./

@@ -1,5 +1,6 @@
-from flask import Flask, request, render_template
+from flask import Flask, render_template, request
 from werkzeug.middleware.proxy_fix import ProxyFix
+
 
 app = Flask(__name__)
 app.wsgi_app = ProxyFix(
@@ -13,7 +14,7 @@ app.wsgi_app = ProxyFix(
 
 
 @app.route('/', methods=['GET'])
-def get_client_ip():
+def get_client_ip() -> str:
     client_ip = request.environ.get('HTTP_X_FORWARDED_FOR', request.remote_addr)
     remote_port = request.environ.get(
         'HTTP_X_FORWARDED_PORT',
